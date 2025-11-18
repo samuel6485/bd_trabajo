@@ -1,0 +1,179 @@
+--JUEGOS
+
+
+CREATE TABLE USUARIO (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre_usuario VARCHAR(45),
+    correo VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE JUEGO (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre_juego VARCHAR(45),
+    categoria VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE LISTA_DE_DESEOS (
+    USUARIO_id INT NOT NULL,
+    JUEGO_id INT NOT NULL,
+    fecha_agregado VARCHAR(45),
+
+    CONSTRAINT fk_lista_usuario
+        FOREIGN KEY (USUARIO_id)
+        REFERENCES USUARIO(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_lista_juego
+        FOREIGN KEY (JUEGO_id)
+        REFERENCES JUEGO(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+-----------------------------------------------
+
+--RECETA 
+
+CREATE TABLE TIPO_DE_CARNE (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE RECETAS (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE RECETA_CARNE (
+    id INT NOT NULL AUTO_INCREMENT,
+    TIPO_DE_CARNE_id INT NOT NULL,
+    RECETAS_id INT NOT NULL,
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_receta_carne_tipo
+        FOREIGN KEY (TIPO_DE_CARNE_id)
+        REFERENCES TIPO_DE_CARNE(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_receta_carne_recetas
+        FOREIGN KEY (RECETAS_id)
+        REFERENCES RECETAS(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+
+-----------------------------------------
+
+
+
+--RED_SOCIAL 
+
+CREATE TABLE EMPLEADO (
+    id INT NOT NULL AUTO_INCREMENT,
+    tipo_doc VARCHAR(45),
+    numero_doc VARCHAR(45),
+    primer_nombre VARCHAR(45),
+    segundo_nombre VARCHAR(45),
+    primer_apellido VARCHAR(45),
+    segundo_apellido VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE RED_SOCIAL (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre_red_social VARCHAR(45),
+    url VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+
+CREATE TABLE PERFIL_SOCIAL (
+    EMPLEADO_id INT NOT NULL,
+    RED_SOCIAL_id INT NOT NULL,
+    url_perfil VARCHAR(45),
+
+    CONSTRAINT fk_perfil_empleado
+        FOREIGN KEY (EMPLEADO_id)
+        REFERENCES EMPLEADO(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_perfil_redsocial
+        FOREIGN KEY (RED_SOCIAL_id)
+        REFERENCES RED_SOCIAL(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+
+
+-------------------------------------------
+
+
+-- TIENDA_PRODUCTOS
+
+CREATE TABLE CLIENTE (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(45),
+    correo VARCHAR(45),
+    telefono VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE PRODUCTO (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre_producto VARCHAR(45),
+    precio VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE COMPRA (
+    id INT NOT NULL AUTO_INCREMENT,
+    fecha_compra VARCHAR(45),
+    monto_total VARCHAR(45),
+    CLIENTE_id INT NOT NULL,
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_compra_cliente
+        FOREIGN KEY (CLIENTE_id)
+        REFERENCES CLIENTE(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE DETALLE_COMPRA (
+    id INT NOT NULL AUTO_INCREMENT,
+    COMPRA_id INT NOT NULL,
+    PRODUCTO_id INT NOT NULL,
+    cantidad VARCHAR(45),
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_detalle_compra
+        FOREIGN KEY (COMPRA_id)
+        REFERENCES COMPRA(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_detalle_producto
+        FOREIGN KEY (PRODUCTO_id)
+        REFERENCES PRODUCTO(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+

@@ -1,0 +1,37 @@
+
+-- REGISTRO_AUTOMOVILES
+
+CREATE TABLE REGISTRO_AUTOMOVILES (
+    id INT NOT NULL AUTO_INCREMENT,
+    marca VARCHAR(45),
+    serie VARCHAR(45),
+    modelo VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+
+--- GEOLOCALIZACION
+
+
+CREATE TABLE GEOLOCALIZACION (
+    id INT NOT NULL AUTO_INCREMENT,
+    calle VARCHAR(45),
+    carrera VARCHAR(45),
+    numero_casa VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+
+--ESTUDIANTES
+
+
+CREATE TABLE ESTUDIANTES (
+    id INT NOT NULL AUTO_INCREMENT,
+    primer_nombre VARCHAR(45),
+    segundo_nombre VARCHAR(45),
+    primer_apellido VARCHAR(45),
+    segundo_apellido VARCHAR(45),
+    PRIMARY KEY (id)
+);

@@ -1,0 +1,140 @@
+
+--CONDUCTOR
+
+CREATE TABLE VEHICULO (
+    id INT NOT NULL AUTO_INCREMENT,
+    marca VARCHAR(45),
+    serie VARCHAR(45),
+    modelo VARCHAR(45),
+    placa VARCHAR(45),
+    PRIMARY KEY (id)
+)
+
+CREATE TABLE CONDUCTOR (
+    id INT NOT NULL AUTO_INCREMENT,
+    tipo_doc VARCHAR(45),
+    numero_doc VARCHAR(45),
+    primer_nombre VARCHAR(45),
+    segundo_nombre VARCHAR(45),
+    primer_apellido VARCHAR(45),
+    segundo_apellido VARCHAR(45),
+    VEHICULO_id INT,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_conductor_vehiculo
+        FOREIGN KEY (VEHICULO_id)
+        REFERENCES VEHICULO(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+);
+
+--------------------------------------------
+
+
+
+--  INV_LICENCIA
+
+
+CREATE TABLE TIPO_SUSCRIPCION (
+    id INT NOT NULL AUTO_INCREMENT,
+    tipo_de_suscripcion VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE TIPO_LICENCIA (
+    id INT NOT NULL AUTO_INCREMENT,
+    tipo_de_licencia VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE LICENCIA (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(45),
+    precio VARCHAR(45),
+    TIPO_LICENCIA_id INT,
+    TIPO_SUSCRIPCION_id INT,
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_licencia_tipo_licencia
+        FOREIGN KEY (TIPO_LICENCIA_id)
+        REFERENCES TIPO_LICENCIA(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+
+    CONSTRAINT fk_licencia_tipo_suscripcion
+        FOREIGN KEY (TIPO_SUSCRIPCION_id)
+        REFERENCES TIPO_SUSCRIPCION(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+);
+
+
+--------------------------------------------
+
+
+
+
+
+---REGISTRO_ENTRADA_SALIDA
+
+
+CREATE TABLE EMPLEADO (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(45),
+    tipo_empleado VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE REGISTRO_EMPLEADO (
+    id INT NOT NULL AUTO_INCREMENT,
+    fecha VARCHAR(45),
+    hora_entrada VARCHAR(45),
+    hora_salida VARCHAR(45),
+    EMPLEADO_id INT,
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_registro_empleado_empleado
+        FOREIGN KEY (EMPLEADO_id)
+        REFERENCES EMPLEADO(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+);
+
+
+
+--------------------------------------------
+
+
+
+
+
+--REGITRO_TELEFONICO 
+
+
+CREATE TABLE REGISTRO_PERSONA (
+    id INT NOT NULL AUTO_INCREMENT,
+    tipo_doc VARCHAR(45),
+    numero_doc VARCHAR(45),
+    primer_nombre VARCHAR(45),
+    segundo_nombre VARCHAR(45),
+    primer_apellido VARCHAR(45),
+    segundo_apellido VARCHAR(45),
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE TELEFONO (
+    id INT NOT NULL AUTO_INCREMENT,
+    tipo_telefono VARCHAR(45),
+    numero_telefono VARCHAR(45),
+    REGISTRO_PERSONA_id INT,
+    PRIMARY KEY (id),
+
+    CONSTRAINT fk_telefono_registro_persona
+        FOREIGN KEY (REGISTRO_PERSONA_id)
+        REFERENCES REGISTRO_PERSONA(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+);
